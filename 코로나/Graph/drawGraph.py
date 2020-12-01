@@ -3,6 +3,7 @@ import matplotlib.dates as mdates
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
+
 f = open('data.csv', 'r', encoding='utf-8')
 rd = csv.reader(f)
 daylist = []

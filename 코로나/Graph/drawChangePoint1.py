@@ -23,16 +23,17 @@ df_prophet = data.rename(columns={
     reqData: 'y'
 })
 m = Prophet(
-    changepoint_prior_scale=0.2,
+    changepoint_prior_scale=0.2, 
     changepoint_range=0.98,
     yearly_seasonality=False,
-    weekly_seasonality=True,
-    daily_seasonality=True,
-    seasonality_mode='multiplicative'
-
-)
-m.add_seasonality('quarterly', period=14,
-                  fourier_order=10, mode='multiplicative')
+    weekly_seasonality=False,
+    daily_seasonality=False,
+    seasonality_mode='multiplicative'  # 코로나 확진자수는 곱해가면서 증가하는 모델을 사용해 예측함
+) 
+m.add_seasonality('quarterly', period=365.25/4,fourier_order=5, prior_scale=15) 
+m.add_seasonality('daily', period=1,fourier_order=50) 
+m.add_seasonality('weekly', period=7, fourier_order=20)
+m.add_seasonality('monthly', period=30.5,fourier_order=55)
 m.fit(df_prophet)
 
 future = m.make_future_dataframe(periods=7)
@@ -41,4 +42,3 @@ fig = m.plot(forecast)
 a = add_changepoints_to_plot(fig.gca(), m, forecast)
 plt.savefig(__file__+".png")
 plt.show()
-
