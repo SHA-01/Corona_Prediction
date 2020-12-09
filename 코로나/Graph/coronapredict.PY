@@ -4,7 +4,7 @@ import plotly.offline as py
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly, add_changepoints_to_plot
 import numpy as np
-
+import matplotlib.pyplot as plt
 data = pd.read_csv('data.csv', error_bad_lines=False)
 print(data.head())
 fig = go.Figure()
@@ -38,6 +38,11 @@ future = m.make_future_dataframe(periods=7) #예측할 공간 할당
 forecast = m.predict(future) #forecast에 예측값 할당
 fig = plot_plotly(m, forecast)
 py.plot(fig)
+
+fig= m.plot(forecast)
+a = add_changepoints_to_plot(fig.gca(), m, forecast)
+plt.savefig(__file__+".png")
+plt.show()
 # fig.show()
 # fig = m.plot(forecast)
 # a = add_changepoints_to_plot(fig.gca(), m, forecast)

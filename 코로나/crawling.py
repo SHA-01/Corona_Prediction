@@ -3,7 +3,7 @@ import time
 import csv
 options = webdriver.ChromeOptions()
 options.add_argument('--window-size=1920,1080')
-driver = webdriver.Chrome(r'C:\Users\82102\Downloads\chromedriver_win32 (3)\chromedriver.exe', options=options)
+driver = webdriver.Chrome('chromedriver.exe', options=options)
 driver.get("https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%BD%94%EB%A1%9C%EB%82%9819_%EB%B2%94%EC%9C%A0%ED%96%89")
 driver.implicitly_wait(300) #위키피디아 코로나 검색결과에 접속한다.
 script = """var list = []; var regex = /[+-]?\d+(\.\d+)?/g;
